@@ -1,15 +1,15 @@
-import {Title} from '../../components/ui/Title';
-import {CustomView} from '../../components/ui/CustomView';
-import {ScrollView} from 'react-native-gesture-handler';
-import {RefreshControl} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {useState} from 'react';
-import {colors, globalStyles} from '../../../config/theme/theme';
+import { Title } from '../../components/ui/Title';
+import { ScrollView } from 'react-native-gesture-handler';
+import { RefreshControl } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useContext, useState } from 'react';
+import { globalStyles } from '../../../config/theme/theme';
+import { ThemeContext } from '../../context/ThemeContext';
 
 export const PullToRefreshScreen = () => {
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
   const {top} = useSafeAreaInsets();
-
+  const { colors } = useContext(ThemeContext);
   const onRefresh = async () => {
     setIsRefreshing(true);
     setTimeout(() => {

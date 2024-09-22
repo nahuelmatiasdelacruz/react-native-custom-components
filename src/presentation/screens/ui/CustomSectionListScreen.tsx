@@ -4,9 +4,10 @@ import { Title } from "../../components/ui/Title";
 import { Card } from "../../components/ui/Card";
 import { houses } from '../../../infrastructure/db/houses';
 import { SubTitle } from "../../components/ui/SubTitle";
-import { colors } from "../../../config/theme/theme";
 import { Separator } from "../../components/ui/Separator";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useContext } from "react";
+import { ThemeContext } from "../../context/ThemeContext";
 
 export const CustomSectionListScreen = () => {
   const { height } = useWindowDimensions();
@@ -20,7 +21,7 @@ export const CustomSectionListScreen = () => {
           keyExtractor={(item)=>item}
           renderItem={({item})=><Text style={{marginVertical: 2}}>{item}</Text>}
           showsVerticalScrollIndicator={false}
-          renderSectionHeader={({section})=><SubTitle text={section.title} backgroundColor={colors.cardBackground}/>}
+          renderSectionHeader={({section})=><SubTitle text={section.title}/>}
           stickySectionHeadersEnabled
           SectionSeparatorComponent={Separator}
           ListHeaderComponent={() => <Title text='Personajes'/>}

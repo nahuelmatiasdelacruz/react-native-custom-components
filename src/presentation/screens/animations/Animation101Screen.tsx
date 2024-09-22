@@ -1,33 +1,58 @@
-import { Animated, Easing, Pressable, StyleSheet, Text, View } from "react-native"
-import { colors } from "../../../config/theme/theme";
-import { useRef } from "react";
-import { useAnimation } from "../../hooks/useAnimation";
+import {
+  Animated,
+  Easing,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import {useContext} from 'react';
+import {useAnimation} from '../../hooks/useAnimation';
+import {ThemeContext} from '../../context/ThemeContext';
+import {CustomView} from '../../components/ui/CustomView';
+import { Button } from '../../components/ui/Button';
 
 export const Animation101Screen = () => {
-  
-  const { fadeIn, fadeOut, animatedOpacity, animatedTop, startMovingTopPosition } = useAnimation();
-  
+  const {colors} = useContext(ThemeContext);
+  const {
+    fadeIn,
+    fadeOut,
+    animatedOpacity,
+    animatedTop,
+    startMovingTopPosition,
+  } = useAnimation();
+
   return (
-    <View style={styles.container}>
-      <Animated.View style={[styles.purpleBox,
-        {
-          opacity: animatedOpacity,
-          transform: [{
-            translateY: animatedTop
-          }]
-        }
-      ]}/>
-      <Pressable onPress={()=>{
-        fadeIn({});
-        startMovingTopPosition({initialPosition: -100, easing: Easing.elastic(2), duration: 750});
-      }} style={{marginTop: 10}}>
-        <Text>Fade In</Text>
-      </Pressable>
-      <Pressable onPress={()=>fadeOut({})} style={{marginTop: 10}}>
-        <Text>Fade Out</Text>
-      </Pressable>
-    </View>
-  )
+    <CustomView style={styles.container} margin>
+      <Animated.View
+        style={[
+          styles.purpleBox,
+          {
+            opacity: animatedOpacity,
+            transform: [
+              {
+                translateY: animatedTop,
+              },
+            ],
+            backgroundColor: colors.primary,
+          },
+        ]}
+      />
+      <Button
+        onPress={() => {
+          fadeIn({});
+          startMovingTopPosition({
+            initialPosition: -100,
+            easing: Easing.elastic(2),
+            duration: 750,
+          });
+        }}
+        styles={{marginTop: 10}}
+        text='FadeIn'
+        />
+      <Button onPress={() => fadeOut({})} styles={{marginTop: 10}} text='FadeOut'/>
+    </CustomView>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -37,8 +62,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   purpleBox: {
-    backgroundColor: colors.primary,
     width: 150,
     height: 150,
-  }
-})
+  },
+});

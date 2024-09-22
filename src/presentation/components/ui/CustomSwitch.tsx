@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { StyleSheet, Text, View, Switch, Platform } from "react-native";
-import { colors } from "../../../config/theme/theme";
+import { ThemeContext } from "../../context/ThemeContext";
 
 interface CustomSwitchProps {
   isOn: boolean;
@@ -9,15 +9,19 @@ interface CustomSwitchProps {
 }
 
 export const CustomSwitch = ({isOn, text, onChange}:CustomSwitchProps) => {
-
+  const { colors } = useContext(ThemeContext);
   return (
-    <View style={styles.switchRow}>
+    <View style={[
+        styles.switchRow,
+        {
+          backgroundColor: colors.cardBackground
+        }
+        ]}>
       {
         text && (<Text style={{color: colors.text}}>{text}</Text>)
       }
       <Switch
           thumbColor={Platform.OS === 'android' ? colors.primary : ''}
-          ios_backgroundColor="#3E3E3E"
           onValueChange={onChange}
           value={isOn}
         />

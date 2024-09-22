@@ -1,11 +1,13 @@
 import {ScrollView, Text, TextInput, View} from 'react-native';
-import {globalStyles} from '../../../config/theme/theme';
+import { globalStyles } from '../../../config/theme/theme';
 import {Card} from '../../components/ui/Card';
 import {CustomView} from '../../components/ui/CustomView';
 import {Title} from '../../components/ui/Title';
-import {useState} from 'react';
+import {useContext, useState} from 'react';
+import { ThemeContext } from '../../context/ThemeContext';
 
 export const TextInputScreen = () => {
+  const { isDark, colors } = useContext(ThemeContext);
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -17,7 +19,8 @@ export const TextInputScreen = () => {
         <Title text="Text inputs" safe />
         <Card>
           <TextInput
-            style={globalStyles.input}
+            style={{...globalStyles.input, color: colors.text}}
+            placeholderTextColor={colors.text}
             placeholder="Nombre completo"
             autoCapitalize="words"
             autoCorrect={false}
@@ -25,7 +28,8 @@ export const TextInputScreen = () => {
             onChangeText={value => setForm({...form, name: value})}
           />
           <TextInput
-            style={globalStyles.input}
+            style={{...globalStyles.input, color: colors.text}}
+            placeholderTextColor={colors.text}
             placeholder="Correo electrónico"
             autoCorrect={false}
             value={form.email}
@@ -33,7 +37,8 @@ export const TextInputScreen = () => {
             onChangeText={value => setForm({...form, email: value})}
           />
           <TextInput
-            style={globalStyles.input}
+            style={{...globalStyles.input, color: colors.text}}
+            placeholderTextColor={colors.text}
             placeholder="Teléfono"
             autoCorrect={false}
             value={form.phone}
@@ -43,7 +48,7 @@ export const TextInputScreen = () => {
         </Card>
         <View style={{height: 10}} />
         <Card>
-          <Text>{JSON.stringify(form, null, 2)}</Text>
+          <Text style={{color: colors.text}}>{JSON.stringify(form, null, 2)}</Text>
         </Card>
       </CustomView>
     </ScrollView>
